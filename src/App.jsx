@@ -6,19 +6,20 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
-import { FiLinkedin, FiMail, FiGlobe, FiArrowLeft } from "react-icons/fi";
+import { FiLinkedin, FiMail, FiArrowLeft } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 // =========== PROJECT DATA ===========
 const PROJECT_DATA = [
   {
     id: 1,
     title: "Multi-Finger Effector",
-    intro: "Robotic hand with mechanical representations of hand, wrist, and elbow joints",
+    intro:
+      "Robotic hand with mechanical representations of hand, wrist, and elbow joints",
     description: [
       "Designed and fabricated a Multi-Finger Effector (MFE) capable of throwing a ball and moving in x-y plane with 120° freedom",
-      "Conducted ANSYS simulations to determine stress distribution during dynamic operation",
+      "Conducted ANSYS simulations to determine stress distribution during operation",
       "Prototyped using Fused Deposition Modeling (FDM)",
-      "Developed electrical schematics for hardware implementation",
     ],
     date: "10/2022 - 05/2023",
     images: [
@@ -35,10 +36,8 @@ const PROJECT_DATA = [
     title: "Finite Element Analysis of Aircraft Wing Bracket",
     intro: "Auxiliary attachment bracket for aircraft wing",
     description: [
-      "Designed custom bracket to maximize strength-weight ratio using FEA",
-      "Achieved highest strength-weight ratio in class of ~100 students",
-      "Implemented manufacturing-ready design for aircraft applications",
-      "Conducted comprehensive material analysis for optimal performance",
+      "Designed and fabricated a custom auxiliary bracket attachment for an aircraft wing that would maximize the strength to weight ratio through finite element analysis.",
+      "Achieved the highest strength-weight ratio for the attachment bracket in an engineering class of around 100 students.",
     ],
     date: "01/2022 - 05/2022",
     images: ["/images/FEA1.png", "/images/FEA2.png", "/images/FEA3.png"],
@@ -48,10 +47,8 @@ const PROJECT_DATA = [
     title: "Travel Desk Organizer",
     intro: "Portable utensil organizer with eco-friendly design",
     description: [
-      "Prototyped using FDM 3D printing technology",
-      "Reduced raw material waste by 20% through compact design",
-      "Implemented frictional contact points for secure utensil storage",
-      "Optimized for manufacturability and ease of assembly",
+      "Prototyped a portable travel organizer capable of holding client’s chosen utensils using FDM.",
+      "Designed a compact travel organizer utilizing frictional contact points for improved efficiency."
     ],
     date: "01/2022 - 05/2022",
     images: [
@@ -65,10 +62,8 @@ const PROJECT_DATA = [
     title: "Automated Soap Dispenser",
     intro: "Motion-activated dispensing system",
     description: [
-      "Designed using PIR sensor and electronic timer system",
-      "Programmed control software using C++",
-      "Optimized pump mechanism for consistent soap dispensing",
-      "Implemented low-power operation for battery efficiency",
+      "Designed an automatic soap dispenser that uses a passive infrared sensor to dispense soap.",
+      "Programmed software for the control system of the soap dispenser using C++.",
     ],
     date: "01/2020 - 05/2020",
     images: ["/images/SOAP DISPENSER 1.png", "/images/SOAP DISPENSER 2.png"],
@@ -76,15 +71,38 @@ const PROJECT_DATA = [
 ];
 
 export default function App() {
+  useEffect(() => {
+    document.title = "Abdulrahman Adil";
+
+    // Remove any existing favicon
+    const existingFavicon = document.querySelector("link[rel='icon']");
+    if (existingFavicon) {
+      document.head.removeChild(existingFavicon);
+    }
+
+    // Create a new link element for the favicon
+    const link = document.createElement("link");
+    link.rel = "icon";
+    link.type = "image/png";
+    // Update path to your 32x32 PNG favicon file:
+    link.href = "/images/favicon-32x32.png";
+
+    document.head.appendChild(link);
+  }, []);
+
   return (
     <Router>
-      {/* Simpler background gradient to reduce repaint cost */}
-      <div className="min-h-screen bg-gradient-to-b from-white to-slate-100 font-sans">
+      <motion.div
+        className="min-h-screen bg-[#f5f5f3] text-[#2b2b2b] font-sans"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/project/:projectId" element={<ProjectPage />} />
         </Routes>
-      </div>
+      </motion.div>
     </Router>
   );
 }
@@ -92,15 +110,31 @@ export default function App() {
 // =========== HOME PAGE ===========
 function HomePage() {
   return (
-    <div className="max-w-6xl mx-auto p-4 md:p-8">
+    <motion.div
+      className="max-w-6xl mx-auto p-4 md:p-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+    >
       {/* Hero Section */}
-      <header className="text-center mb-16 relative rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-700 text-white p-12 shadow-md">
+      <motion.header
+        className="text-center mb-16 relative rounded-2xl bg-white text-black p-12 shadow-lg border border-gray-300"
+        initial={{ scale: 0.95 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.7 }}
+      >
         <div className="relative z-10 space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-white">
+          <img
+            src="/images/me.png"  /* Replace yourNewProfile.jpg with the actual file name */
+            alt="Profile"
+            className="mx-auto w-36 h-36 object-cover rounded-full shadow-lg border-4 border-white"
+          />
+          <h1 className="text-4xl md:text-5xl font-extrabold text-red-700">
             Abdulrahman Adil
           </h1>
-          <p className="text-lg text-blue-100 max-w-2xl mx-auto">
-            Mechanical Engineer | Product Development Specialist | Innovative Problem Solver
+          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+            Mechanical Engineer | Product Development Specialist | Innovative
+            Problem Solver
           </p>
           <div className="flex justify-center space-x-4">
             <SocialLink
@@ -113,24 +147,19 @@ function HomePage() {
               icon={<FiMail />}
               label="Email"
             />
-            <SocialLink
-              href="http://abdulrahmanadil.com"
-              icon={<FiGlobe />}
-              label="Website"
-            />
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Education & Skills Grid */}
       <div className="grid md:grid-cols-2 gap-8 mb-16">
         <SectionCard title="Education">
           <div className="bg-white rounded-xl p-4 shadow-sm">
-            <h3 className="font-semibold text-lg text-blue-800">
+            <h3 className="font-semibold text-lg text-gray-800">
               University of Illinois at Chicago
             </h3>
-            <p className="text-blue-600">B.S. Mechanical Engineering</p>
-            <p className="text-sm text-blue-500">
+            <p className="text-gray-600">B.S. Mechanical Engineering</p>
+            <p className="text-sm text-gray-500">
               December 2023 | GPA: 3.56/4.00
             </p>
           </div>
@@ -138,41 +167,42 @@ function HomePage() {
 
         <SectionCard title="Technical Expertise">
           <div className="grid grid-cols-2 gap-4">
-            <SkillPill title="SolidWorks" />
-            <SkillPill title="Siemens NX" />
-            <SkillPill title="ANSYS" />
-            <SkillPill title="FEA" />
-            <SkillPill title="GD&T" />
-            <SkillPill title="DFM" />
-            <SkillPill title="Arduino" />
-            <SkillPill title="MATLAB" />
+            <SkillPill title="Computer-Aided Designs" />
+            <SkillPill title="Microsoft Office" />
+            <SkillPill title="Design for Manufacturing" />
+            <SkillPill title="Injection Molding" />
+            <SkillPill title="Leadership" />
+            <SkillPill title="Detail Oriented" />
+            <SkillPill title="Project Management" />
+            <SkillPill title="Communication Skills" />
           </div>
         </SectionCard>
       </div>
 
       {/* Professional Experience */}
       <SectionCard title="Professional Experience">
-        <div className="relative pl-8 border-l-2 border-blue-100 space-y-12">
+        <div className="relative pl-8 border-l-2 border-gray-300 space-y-12">
           <TimelineItem
-            title="Sustaining Engineer"
-            company="Switcheraft Conxall"
+            title="Sustaining Engineer (Villa Park, IL)"
+            company="Switchcraft Conxall"
             date="02/2024 - Present"
             highlights={[
-              "Maintain and support existing products while assisting new deployments",
-              "Implement product redesigns with technical drawings and cost analysis",
-              "Conduct laboratory tests for quality assurance and compliance",
-              "Develop customer projects from concept to production",
+              "Maintained and provided general support for existing products and assisted in deploying new ones",
+              "Implemented product redesigns, including the creation of drawings, cost summaries, and tooling requests",
+              "Conducted various laboratory tests and studies to ensure product quality and compliance with project requirements",
+              "Developed customer projects from concept to production, including drawing and BOM creation, cost analysis, and manufacturing process procedures",
+              "Interfaced with the manufacturing department to ensure the feasibility of customer projects and provide process improvement recommendations"
             ]}
           />
           <TimelineItem
-            title="R&D Engineering Intern"
+            title="R&D Engineering Intern (Tinley Park, IL)"
             company="Panduit"
             date="05/2023 - 08/2023"
             highlights={[
-              "Redesigned products using Siemens NX for DFM optimization",
-              "Conducted thermal analysis using ANSYS for cooling systems",
-              "Developed product integration strategies with existing lines",
-              "Presented research findings to engineering leadership",
+              "Redesigned multiple signature products using Siemens NX to understand DFM and learned how to cost-efficiently design products to prepare them for injection molding",
+              "Conducted preliminary research on a possible new product and presented my conclusions to my supervisor",
+              "Developed preliminary product design schematics and researched their potential integration with existing products",
+              "Designed a cooling strategy for our product, which included an initial cooling system schematic, then employed ANSYS for steady-state thermal analysis to ensure its effectiveness"
             ]}
           />
         </div>
@@ -182,15 +212,23 @@ function HomePage() {
       <SectionCard title="Engineering Projects">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {PROJECT_DATA.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <ProjectCard project={project} />
+            </motion.div>
           ))}
         </div>
       </SectionCard>
 
-      <footer className="mt-16 text-center text-sm text-blue-600/80">
-        <p>© 2025 Abdulrahman Adil. All rights reserved.</p>
+      <footer className="mt-16 text-center text-sm text-gray-500">
+        <p>© {new Date().getFullYear()} Abdulrahman Adil. All rights reserved.</p>
       </footer>
-    </div>
+    </motion.div>
   );
 }
 
@@ -200,12 +238,10 @@ function ProjectPage() {
   const project = PROJECT_DATA.find((p) => p.id === parseInt(projectId, 10));
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
-  // Scroll to top when project changes
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [projectId]);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
 
-  // Handle body overflow for image modal
   useEffect(() => {
     if (selectedImageIndex !== null) {
       document.body.style.overflow = "hidden";
@@ -217,29 +253,34 @@ function ProjectPage() {
   if (!project) return <NotFound />;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <motion.div
+      className="max-w-4xl mx-auto px-4 py-8"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+    >
       <Link
         to="/"
-        className="mb-8 inline-flex items-center text-blue-600 hover:text-blue-800 transition"
+        className="mb-8 inline-flex items-center text-gray-700 hover:text-red-600 transition"
       >
         <FiArrowLeft className="mr-2" /> Back to Portfolio
       </Link>
 
       {/* Project Details */}
-      <div className="bg-white rounded-2xl shadow-md overflow-hidden mb-8">
-        <div className="p-8 bg-gradient-to-b from-blue-50 to-white">
-          <h1 className="text-4xl font-bold text-blue-900 mb-4">
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
+        <div className="p-8 bg-gradient-to-b from-[#fdfdfd] to-[#f4f4f4]">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
             {project.title}
           </h1>
-          <div className="flex items-center text-blue-600 space-x-4 mb-6">
-            <span className="px-3 py-1 bg-blue-100 rounded-full text-sm">
+          <div className="flex items-center text-gray-600 space-x-4 mb-6">
+            <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
               {project.date}
             </span>
           </div>
           <ul className="space-y-4 mb-8">
             {project.description.map((point, index) => (
-              <li key={index} className="flex items-start text-blue-700">
-                <span className="text-blue-400 mr-2 mt-1">▹</span>
+              <li key={index} className="flex items-start text-gray-700">
+                <span className="text-red-600 mr-2 mt-1">▹</span>
                 {point}
               </li>
             ))}
@@ -251,10 +292,9 @@ function ProjectPage() {
           {project.images.map((url, i) => (
             <div
               key={i}
-              className="relative group overflow-hidden rounded-xl cursor-pointer"
+              className="relative group overflow-hidden rounded-xl cursor-pointer hover:shadow-lg transition-shadow duration-200"
               onClick={() => setSelectedImageIndex(i)}
             >
-              {/* Use loading="lazy" to defer offscreen image loading */}
               <img
                 src={url}
                 alt="Project visual"
@@ -291,7 +331,7 @@ function ProjectPage() {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -302,7 +342,7 @@ function SocialLink({ href, icon, label }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="flex items-center space-x-2 px-6 py-3 bg-white/10 rounded-full hover:bg-white/20 transition duration-200"
+      className="flex items-center space-x-2 px-6 py-3 bg-white/10 rounded-full hover:bg-red-100 hover:text-red-700 transition duration-200"
     >
       {React.cloneElement(icon, { className: "w-5 h-5" })}
       <span>{label}</span>
@@ -312,10 +352,8 @@ function SocialLink({ href, icon, label }) {
 
 function SectionCard({ title, children, className }) {
   return (
-    <div
-      className={`bg-white rounded-2xl shadow-md p-6 ${className ?? ""}`}
-    >
-      <h2 className="text-3xl font-bold text-blue-900 mb-6">{title}</h2>
+    <div className={`bg-white rounded-2xl shadow-lg p-6 ${className ?? ""}`}>
+      <h2 className="text-3xl font-bold text-gray-900 mb-6">{title}</h2>
       {children}
     </div>
   );
@@ -323,7 +361,7 @@ function SectionCard({ title, children, className }) {
 
 function SkillPill({ title }) {
   return (
-    <div className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm text-center hover:bg-blue-200 transition duration-200">
+    <div className="bg-red-700 text-white px-4 py-2 rounded-full text-sm text-center font-medium">
       {title}
     </div>
   );
@@ -332,14 +370,14 @@ function SkillPill({ title }) {
 function TimelineItem({ title, company, date, highlights }) {
   return (
     <div className="relative pl-6">
-      <div className="absolute w-4 h-4 bg-blue-500 rounded-full -left-[9px] top-2 border-2 border-white shadow" />
-      <h3 className="text-xl font-semibold text-blue-900">{title}</h3>
-      <p className="text-blue-600 font-medium">{company}</p>
-      <p className="text-sm text-blue-500 mb-4">{date}</p>
+      <div className="absolute w-4 h-4 bg-red-700 rounded-full -left-[9px] top-2 border-2 border-white shadow" />
+      <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
+      <p className="text-gray-600 font-medium">{company}</p>
+      <p className="text-sm text-gray-500 mb-4">{date}</p>
       <ul className="space-y-2">
         {highlights.map((item, i) => (
-          <li key={i} className="flex items-start text-blue-700">
-            <span className="text-blue-400 mr-2">▹</span>
+          <li key={i} className="flex items-start text-gray-700">
+            <span className="text-red-600 mr-2">▹</span>
             {item}
           </li>
         ))}
@@ -352,26 +390,23 @@ function ProjectCard({ project }) {
   return (
     <Link
       to={`/project/${project.id}`}
-      className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-lg transition duration-200"
+      className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition duration-200"
     >
-      <div className="h-48 bg-gradient-to-r from-blue-200 to-indigo-200">
+      <div className="h-48 bg-[#eaeaea] overflow-hidden">
         <img
           src={project.images[0]}
           alt={project.title}
           loading="lazy"
-          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-200"
+          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-200 transform group-hover:scale-105"
         />
       </div>
-      <div className="p-6 bg-white/90">
-        <h3 className="text-xl font-semibold text-blue-900 mb-2">
+      <div className="p-6 bg-white">
+        <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-red-700 transition-colors duration-200">
           {project.title}
         </h3>
-        <p className="text-blue-600 line-clamp-2">{project.intro}</p>
-        <div className="mt-4 flex items-center justify-between text-sm text-blue-500">
+        <p className="text-gray-600 line-clamp-2">{project.intro}</p>
+        <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
           <span>{project.date}</span>
-          <span className="px-2 py-1 bg-blue-100 rounded-full">
-            View Project →
-          </span>
         </div>
       </div>
     </Link>
@@ -380,12 +415,12 @@ function ProjectCard({ project }) {
 
 function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-white">
-      <h1 className="text-6xl font-bold text-blue-900 mb-4">404</h1>
-      <p className="text-xl text-blue-700 mb-8">Project not found</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#f5f5f3]">
+      <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
+      <p className="text-xl text-gray-700 mb-8">Project not found</p>
       <Link
         to="/"
-        className="flex items-center px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-200"
+        className="flex items-center px-6 py-3 bg-gray-700 text-white rounded-full hover:bg-gray-800 transition duration-200"
       >
         <FiArrowLeft className="mr-2" /> Return to Portfolio
       </Link>
