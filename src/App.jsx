@@ -180,7 +180,7 @@ function HomePage() {
       </div>
 
       {/* Professional Experience */}
-      <SectionCard title="Professional Experience">
+      <SectionCard title="Professional Experience" className="mb-16">
         <div className="relative pl-8 border-l-2 border-gray-300 space-y-12">
           <TimelineItem
             title="Sustaining Engineer (Villa Park, IL)"
@@ -387,18 +387,32 @@ function TimelineItem({ title, company, date, highlights }) {
 }
 
 function ProjectCard({ project }) {
+  // Function to generate a random HSL color
+  const getRandomHSL = (hueStart = 0, hueEnd = 360) => {
+    const hue = Math.random() * (hueEnd - hueStart) + hueStart;
+    const saturation = Math.random() * 40 + 60; // Saturation between 60% and 100%
+    const lightness = Math.random() * 30 + 40;   // Lightness between 40% and 70% (mid-range)
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  };
+
+  // Generate two random HSL colors for the gradient
+  const color1 = getRandomHSL();
+  const color2 = getRandomHSL();
+  const color3 = getRandomHSL(); // Add a third color for more complexity
+
+  // Construct a dynamic gradient class using Tailwind's arbitrary values
+  const backgroundStyle = {
+    backgroundImage: `linear-gradient(to bottom right, ${color1}, ${color2}, ${color3})`,
+  };
+
+
   return (
     <Link
       to={`/project/${project.id}`}
       className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition duration-200"
     >
-      <div className="h-48 bg-[#eaeaea] overflow-hidden">
-        <img
-          src={project.images[0]}
-          alt={project.title}
-          loading="lazy"
-          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-200 transform group-hover:scale-105"
-        />
+      <div className={`h-48 overflow-hidden transition-all duration-300 group-hover:brightness-110`} style={backgroundStyle}>
+        {/* No image or SVG here, just the background color */}
       </div>
       <div className="p-6 bg-white">
         <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-red-700 transition-colors duration-200">
