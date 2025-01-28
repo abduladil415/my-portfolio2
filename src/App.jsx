@@ -118,7 +118,7 @@ function HomePage() {
     >
       {/* Hero Section */}
       <motion.header
-        className="text-center mb-16 relative rounded-2xl bg-white text-black p-12 shadow-lg border border-gray-300"
+        className="text-center relative rounded-2xl bg-white text-black p-12 shadow-lg border border-gray-300 mb-8"  // Changed mb-16 to mb-8
         initial={{ scale: 0.95 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.7 }}
@@ -152,35 +152,33 @@ function HomePage() {
       </motion.header>
 
       {/* Education & Skills Grid */}
-      <div className="grid md:grid-cols-2 gap-8 mb-16">
-        <SectionCard title="Education">
-          <div className="bg-white rounded-xl p-4 shadow-sm">
-            <h3 className="font-semibold text-lg text-gray-800">
-              University of Illinois at Chicago
-            </h3>
-            <p className="text-gray-600">B.S. Mechanical Engineering</p>
-            <p className="text-sm text-gray-500">
-              December 2023 | GPA: 3.56/4.00
-            </p>
-          </div>
-        </SectionCard>
+      <SectionCard title="Education">
+        <div className="bg-white rounded-xl p-4 shadow-sm">
+          <h3 className="font-semibold text-lg text-gray-800">
+            University of Illinois at Chicago
+          </h3>
+          <p className="text-gray-600">B.S. Mechanical Engineering</p>
+          <p className="text-sm text-gray-500">
+            December 2023 | GPA: 3.56/4.00
+          </p>
+        </div>
+      </SectionCard>
 
-        <SectionCard title="Technical Expertise">
-          <div className="grid grid-cols-2 gap-4">
-            <SkillPill title="Computer-Aided Designs" />
-            <SkillPill title="Microsoft Office" />
-            <SkillPill title="Design for Manufacturing" />
-            <SkillPill title="Injection Molding" />
-            <SkillPill title="Leadership" />
-            <SkillPill title="Detail Oriented" />
-            <SkillPill title="Project Management" />
-            <SkillPill title="Communication Skills" />
-          </div>
-        </SectionCard>
-      </div>
+      <SectionCard title="Technical Expertise">
+        <div className="grid grid-cols-2 gap-4">
+          <SkillPill title="Computer-Aided Designs" />
+          <SkillPill title="Microsoft Office" />
+          <SkillPill title="Design for Manufacturing" />
+          <SkillPill title="Injection Molding" />
+          <SkillPill title="Leadership" />
+          <SkillPill title="Detail Oriented" />
+          <SkillPill title="Project Management" />
+          <SkillPill title="Communication Skills" />
+        </div>
+      </SectionCard>
 
       {/* Professional Experience */}
-      <SectionCard title="Professional Experience" className="mb-16">
+      <SectionCard title="Professional Experience">
         <div className="relative pl-8 border-l-2 border-gray-300 space-y-12">
           <TimelineItem
             title="Sustaining Engineer (Villa Park, IL)"
@@ -209,7 +207,7 @@ function HomePage() {
       </SectionCard>
 
       {/* Projects Showcase */}
-      <SectionCard title="Engineering Projects">
+      <SectionCard title="Engineering Projects" className="mb-0"> {/* Removed mb-16 from last SectionCard before footer */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {PROJECT_DATA.map((project) => (
             <motion.div
@@ -352,7 +350,7 @@ function SocialLink({ href, icon, label }) {
 
 function SectionCard({ title, children, className }) {
   return (
-    <div className={`bg-white rounded-2xl shadow-lg p-6 ${className ?? ""}`}>
+    <div className={`bg-white rounded-2xl shadow-lg p-6 mb-8 ${className ?? ""}`}> {/* Changed mb-16 to mb-8 */}
       <h2 className="text-3xl font-bold text-gray-900 mb-6">{title}</h2>
       {children}
     </div>
