@@ -125,7 +125,7 @@ function HomePage() {
       >
         <div className="relative z-10 space-y-6">
           <img
-            src="/images/me.png"  /* Replace yourNewProfile.jpg with the actual file name */
+            src="/images/me.png"
             alt="Profile"
             className="mx-auto w-36 h-36 object-cover rounded-full shadow-lg border-4 border-white"
           />
@@ -166,15 +166,16 @@ function HomePage() {
         </SectionCard>
 
         <SectionCard title="Technical Expertise">
-          <div className="grid grid-cols-2 gap-4">
-            <SkillPill title="Computer-Aided Designs" />
-            <SkillPill title="Microsoft Office" />
-            <SkillPill title="Design for Manufacturing" />
-            <SkillPill title="Injection Molding" />
+          {/* Changed grid-cols-1 => grid-cols-2 to keep 2 columns on phones and desktops */}
+          <div className="grid grid-cols-2 gap-y-2 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-3 sm:items-start">
             <SkillPill title="Leadership" />
             <SkillPill title="Detail Oriented" />
             <SkillPill title="Project Management" />
             <SkillPill title="Communication Skills" />
+            <SkillPill title="Microsoft Office" />
+            <SkillPill title="Injection Molding" />
+            <SkillPill title="Design for Manufacturing" />
+            <SkillPill title="Computer-Aided Designs" />
           </div>
         </SectionCard>
       </div>
@@ -361,7 +362,7 @@ function SectionCard({ title, children, className }) {
 
 function SkillPill({ title }) {
   return (
-    <div className="bg-red-700 text-white px-4 py-2 rounded-full text-sm text-center font-medium">
+    <div className="bg-red-700 text-white px-3 py-2 rounded-full text-sm text-center font-medium w-full">
       {title}
     </div>
   );
@@ -391,28 +392,30 @@ function ProjectCard({ project }) {
   const getRandomHSL = (hueStart = 0, hueEnd = 360) => {
     const hue = Math.random() * (hueEnd - hueStart) + hueStart;
     const saturation = Math.random() * 40 + 60; // Saturation between 60% and 100%
-    const lightness = Math.random() * 30 + 40;   // Lightness between 40% and 70% (mid-range)
+    const lightness = Math.random() * 30 + 40;   // Lightness between 40% and 70%
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   };
 
-  // Generate two random HSL colors for the gradient
+  // Generate three random HSL colors for a more dynamic gradient
   const color1 = getRandomHSL();
   const color2 = getRandomHSL();
-  const color3 = getRandomHSL(); // Add a third color for more complexity
+  const color3 = getRandomHSL();
 
-  // Construct a dynamic gradient class using Tailwind's arbitrary values
+  // Construct a dynamic gradient style
   const backgroundStyle = {
     backgroundImage: `linear-gradient(to bottom right, ${color1}, ${color2}, ${color3})`,
   };
-
 
   return (
     <Link
       to={`/project/${project.id}`}
       className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition duration-200"
     >
-      <div className={`h-48 overflow-hidden transition-all duration-300 group-hover:brightness-110`} style={backgroundStyle}>
-        {/* No image or SVG here, just the background color */}
+      <div
+        className="h-48 overflow-hidden transition-all duration-300 group-hover:brightness-110"
+        style={backgroundStyle}
+      >
+        {/* No image or SVG here, just the dynamic background color */}
       </div>
       <div className="p-6 bg-white">
         <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-red-700 transition-colors duration-200">
