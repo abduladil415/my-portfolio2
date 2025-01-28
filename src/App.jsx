@@ -288,8 +288,8 @@ function ProjectPage() {
           </ul>
         </div>
 
-        {/* Image Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-8">
+        {/* Image Grid - MASONRY LAYOUT */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-8"> {/* Adjusted columns for responsiveness */}
           {project.images.map((url, i) => (
             <div
               key={i}
@@ -300,7 +300,8 @@ function ProjectPage() {
                 src={url}
                 alt="Project visual"
                 loading="lazy"
-                className="w-full h-64 object-cover transform transition duration-200 group-hover:scale-105"
+                className="w-full h-full object-cover aspect-[1/1] sm:aspect-[4/3] md:aspect-[3/2] lg:aspect-[16/9] xl:aspect-[1/1] transform transition duration-200 group-hover:scale-105" /* Aspect ratios for different screen sizes */
+                style={{ aspectRatio: 'auto' }} // Override default aspect ratio to allow masonry effect
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
