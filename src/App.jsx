@@ -6,7 +6,7 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
-import { FiLinkedin, FiMail, FiArrowLeft } from "react-icons/fi";
+import { FiLinkedin, FiMail, FiArrowLeft, FiArrowRight, FiX } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 // =========== PROJECT DATA ===========
@@ -48,7 +48,7 @@ const PROJECT_DATA = [
     intro: "Portable utensil organizer with eco-friendly design",
     description: [
       "Prototyped a portable travel organizer capable of holding client’s chosen utensils using FDM.",
-      "Designed a compact travel organizer utilizing frictional contact points for improved efficiency."
+      "Designed a compact travel organizer utilizing frictional contact points for improved efficiency.",
     ],
     date: "01/2022 - 05/2022",
     images: [
@@ -70,30 +70,29 @@ const PROJECT_DATA = [
   },
 ];
 
+function updateFavicon() {
+  const existingFavicon = document.querySelector("link[rel='icon']");
+  if (existingFavicon) {
+    document.head.removeChild(existingFavicon);
+  }
+  const link = document.createElement("link");
+  link.rel = "icon";
+  link.type = "image/png";
+  link.href = "/images/favicon-32x32.png";
+  document.head.appendChild(link);
+}
+
+
 export default function App() {
   useEffect(() => {
     document.title = "Abdulrahman Adil";
-
-    // Remove any existing favicon
-    const existingFavicon = document.querySelector("link[rel='icon']");
-    if (existingFavicon) {
-      document.head.removeChild(existingFavicon);
-    }
-
-    // Create a new link element for the favicon
-    const link = document.createElement("link");
-    link.rel = "icon";
-    link.type = "image/png";
-    // Update path to your 32x32 PNG favicon file:
-    link.href = "/images/favicon-32x32.png";
-
-    document.head.appendChild(link);
+    updateFavicon();
   }, []);
 
   return (
     <Router>
       <motion.div
-        className="min-h-screen bg-[#f5f5f3] text-[#2b2b2b] font-sans"
+        className="min-h-screen bg-white text-black font-sans"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
@@ -107,131 +106,203 @@ export default function App() {
   );
 }
 
+// =========== HOME PAGE COMPONENTS ===========
+const HeroSection = () => (
+  <motion.header
+    className="text-center mb-12 relative rounded bg-white text-black p-12 shadow-[8px_8px_0_black] border-4 border-black"
+    initial={{ scale: 0.95 }}
+    animate={{ scale: 1 }}
+    transition={{ duration: 0.7 }}
+  >
+    <div className="relative z-10 space-y-6">
+      <img
+        src="/images/me.png"
+        alt="Profile of Abdulrahman Adil"
+        className="mx-auto w-36 h-36 object-cover rounded-full shadow-[4px_4px_0_black] border-4 border-black"
+      />
+      <h1 className="text-4xl md:text-5xl font-mono tracking-wide">Abdulrahman Adil</h1>
+      <p className="text-lg font-serif italic tracking-wider max-w-2xl mx-auto">
+        Mechanical Engineer | Product Development Specialist | Innovative Problem Solver
+      </p>
+      <div className="flex justify-center space-x-4">
+        <SocialLink
+          href="https://www.linkedin.com/in/abduladil415/"
+          icon={<FiLinkedin />}
+          label="LinkedIn"
+        />
+        <SocialLink
+          href="mailto:abduladil415@gmail.com"
+          icon={<FiMail />}
+          label="Email"
+        />
+      </div>
+    </div>
+  </motion.header>
+);
+
+const EducationSkills = () => (
+  <div className="grid md:grid-cols-2 gap-8 mb-12">
+    <SectionCard title="Education">
+      <div className="bg-white rounded p-6 shadow-[4px_4px_0_black] border-4 border-black">
+        <h3 className="font-mono text-xl">University of Illinois at Chicago</h3>
+        <p className="font-serif text-base">B.S. Mechanical Engineering</p>
+        <p className="text-sm">December 2023 | GPA: 3.56/4.00</p>
+      </div>
+    </SectionCard>
+    <SectionCard title="Technical Expertise">
+      <div className="grid grid-cols-2 gap-y-4 sm:gap-x-6">
+        <SkillPill title="Leadership" />
+        <SkillPill title="Detail Oriented" />
+        <SkillPill title="Project Management" />
+        <SkillPill title="Communication Skills" />
+        <SkillPill title="Microsoft Office" />
+        <SkillPill title="Injection Molding" />
+        <SkillPill title="Design for Manufacturing" />
+        <SkillPill title="Computer-Aided Designs" />
+      </div>
+    </SectionCard>
+  </div>
+);
+
+const ProfessionalExperience = () => (
+  <SectionCard title="Professional Experience" className="mb-12">
+    <div className="relative pl-8 border-l-4 border-black space-y-8">
+      <TimelineItem
+        title="Sustaining Engineer (Villa Park, IL)"
+        company="Switchcraft Conxall"
+        date="02/2024 - Present"
+        highlights={[
+          "Maintained and provided general support for existing products and assisted in deploying new ones",
+          "Implemented product redesigns, including the creation of drawings, cost summaries, and tooling requests",
+          "Conducted various laboratory tests and studies to ensure product quality and compliance with project requirements",
+          "Developed customer projects from concept to production, including drawing and BOM creation, cost analysis, and manufacturing process procedures",
+          "Interfaced with the manufacturing department to ensure the feasibility of customer projects and provide process improvement recommendations",
+        ]}
+      />
+      <TimelineItem
+        title="R&D Engineering Intern (Tinley Park, IL)"
+        company="Panduit"
+        date="05/2023 - 08/2023"
+        highlights={[
+          "Redesigned multiple signature products using Siemens NX to understand DFM and learned how to cost-efficiently design products to prepare them for injection molding",
+          "Conducted preliminary research on a possible new product and presented my conclusions to my supervisor",
+          "Developed preliminary product design schematics and researched their potential integration with existing products",
+          "Designed a cooling strategy for our product, which included an initial cooling system schematic, then employed ANSYS for steady-state thermal analysis to ensure its effectiveness",
+        ]}
+      />
+    </div>
+  </SectionCard>
+);
+
+const ProjectsShowcase = () => (
+  <SectionCard title="Engineering Projects" className="mb-12">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {PROJECT_DATA.map((project) => (
+        <motion.div
+          key={project.id}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <ProjectCard project={project} />
+        </motion.div>
+      ))}
+    </div>
+  </SectionCard>
+);
+
+
 // =========== HOME PAGE ===========
 function HomePage() {
   return (
     <motion.div
-      className="max-w-6xl mx-auto p-4 md:p-8"
+      className="max-w-6xl mx-auto p-8"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Hero Section */}
-      <motion.header
-        className="text-center mb-8 relative rounded-2xl bg-white text-black p-12 shadow-lg border border-gray-300"
-        initial={{ scale: 0.95 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.7 }}
-      >
-        <div className="relative z-10 space-y-6">
-          <img
-            src="/images/me.png"
-            alt="Profile"
-            className="mx-auto w-36 h-36 object-cover rounded-full shadow-lg border-4 border-white"
-          />
-          <h1 className="text-4xl md:text-5xl font-extrabold text-red-700">
-            Abdulrahman Adil
-          </h1>
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            Mechanical Engineer | Product Development Specialist | Innovative
-            Problem Solver
-          </p>
-          <div className="flex justify-center space-x-4">
-            <SocialLink
-              href="https://www.linkedin.com/in/abduladil415/"
-              icon={<FiLinkedin />}
-              label="LinkedIn"
-            />
-            <SocialLink
-              href="mailto:abduladil415@gmail.com"
-              icon={<FiMail />}
-              label="Email"
-            />
-          </div>
-        </div>
-      </motion.header>
+      <HeroSection />
+      <EducationSkills />
+      <ProfessionalExperience />
+      <ProjectsShowcase />
 
-      {/* Education & Skills Grid */}
-      <div className="grid md:grid-cols-2 gap-8 mb-8">
-        <SectionCard title="Education">
-          <div className="bg-white rounded-xl p-4 shadow-sm">
-            <h3 className="font-semibold text-lg text-gray-800">
-              University of Illinois at Chicago
-            </h3>
-            <p className="text-gray-600">B.S. Mechanical Engineering</p>
-            <p className="text-sm text-gray-500">
-              December 2023 | GPA: 3.56/4.00
-            </p>
-          </div>
-        </SectionCard>
-
-        <SectionCard title="Technical Expertise">
-          {/* Changed grid-cols-1 => grid-cols-2 to keep 2 columns on phones and desktops */}
-          <div className="grid grid-cols-2 gap-y-2 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-3 sm:items-start">
-            <SkillPill title="Leadership" />
-            <SkillPill title="Detail Oriented" />
-            <SkillPill title="Project Management" />
-            <SkillPill title="Communication Skills" />
-            <SkillPill title="Microsoft Office" />
-            <SkillPill title="Injection Molding" />
-            <SkillPill title="Design for Manufacturing" />
-            <SkillPill title="Computer-Aided Designs" />
-          </div>
-        </SectionCard>
-      </div>
-
-      {/* Professional Experience */}
-      <SectionCard title="Professional Experience" className="mb-8">
-        <div className="relative pl-8 border-l-2 border-gray-300 space-y-12">
-          <TimelineItem
-            title="Sustaining Engineer (Villa Park, IL)"
-            company="Switchcraft Conxall"
-            date="02/2024 - Present"
-            highlights={[
-              "Maintained and provided general support for existing products and assisted in deploying new ones",
-              "Implemented product redesigns, including the creation of drawings, cost summaries, and tooling requests",
-              "Conducted various laboratory tests and studies to ensure product quality and compliance with project requirements",
-              "Developed customer projects from concept to production, including drawing and BOM creation, cost analysis, and manufacturing process procedures",
-              "Interfaced with the manufacturing department to ensure the feasibility of customer projects and provide process improvement recommendations"
-            ]}
-          />
-          <TimelineItem
-            title="R&D Engineering Intern (Tinley Park, IL)"
-            company="Panduit"
-            date="05/2023 - 08/2023"
-            highlights={[
-              "Redesigned multiple signature products using Siemens NX to understand DFM and learned how to cost-efficiently design products to prepare them for injection molding",
-              "Conducted preliminary research on a possible new product and presented my conclusions to my supervisor",
-              "Developed preliminary product design schematics and researched their potential integration with existing products",
-              "Designed a cooling strategy for our product, which included an initial cooling system schematic, then employed ANSYS for steady-state thermal analysis to ensure its effectiveness"
-            ]}
-          />
-        </div>
-      </SectionCard>
-
-      {/* Projects Showcase */}
-      <SectionCard title="Engineering Projects" className="mb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {PROJECT_DATA.map((project) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <ProjectCard project={project} />
-            </motion.div>
-          ))}
-        </div>
-      </SectionCard>
-
-      <footer className="mt-8 text-center text-sm text-gray-500">
+      <footer className="mt-12 text-center text-sm">
         <p>© {new Date().getFullYear()} Abdulrahman Adil. All rights reserved.</p>
       </footer>
     </motion.div>
   );
 }
+
+// =========== PROJECT PAGE COMPONENTS ===========
+const ProjectImageGrid = ({ images, setSelectedImageIndex }) => (
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"> {/* Reduced padding here */}
+    {images.map((url, i) => (
+      <div
+        key={i}
+        className="relative overflow-hidden rounded cursor-pointer transition focus:outline-none border-4 border-black"
+        onClick={() => setSelectedImageIndex(i)}
+      >
+        <img
+          src={url}
+          alt={`Project visual ${i + 1}`}
+          loading="lazy"
+          className="w-full h-full object-cover transition duration-200"
+          style={{ aspectRatio: "auto" }}
+        />
+      </div>
+    ))}
+  </div>
+);
+
+
+const ProjectImageModal = ({ project, selectedImageIndex, setSelectedImageIndex }) => {
+  if (selectedImageIndex === null) return null;
+
+  return (
+    <div
+      className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+      onClick={() => setSelectedImageIndex(null)}
+    >
+      <div
+        className="relative max-w-4xl max-h-[90vh]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={project.images[selectedImageIndex]}
+          alt={`Enlarged project visual ${selectedImageIndex + 1}`}
+          className="object-contain max-w-full max-h-full border-4 border-black"
+        />
+        {/* Close Button (using FiX icon) */}
+        <button
+          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
+          onClick={() => setSelectedImageIndex(null)}
+        >
+          <FiX />
+        </button>
+        {/* Previous Arrow */}
+        {selectedImageIndex > 0 && (
+          <button
+            className="absolute left-4 top-1/2 w-10 h-10 transform -translate-y-1/2 flex items-center justify-center text-white text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
+            onClick={() => setSelectedImageIndex(selectedImageIndex - 1)}
+          >
+            <FiArrowLeft />
+          </button>
+        )}
+        {/* Next Arrow */}
+        {selectedImageIndex < project.images.length - 1 && (
+          <button
+            className="absolute right-4 top-1/2 w-10 h-10 transform -translate-y-1/2 flex items-center justify-center text-white text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
+            onClick={() => setSelectedImageIndex(selectedImageIndex + 1)}
+          >
+            <FiArrowRight />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
 
 // =========== PROJECT PAGE ===========
 function ProjectPage() {
@@ -244,95 +315,53 @@ function ProjectPage() {
   }, []);
 
   useEffect(() => {
-    if (selectedImageIndex !== null) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = selectedImageIndex !== null ? "hidden" : "unset";
   }, [selectedImageIndex]);
 
   if (!project) return <NotFound />;
 
   return (
     <motion.div
-      className="max-w-4xl mx-auto px-4 py-8"
+      className="max-w-4xl mx-auto px-8 py-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
       <Link
         to="/"
-        className="mb-8 inline-flex items-center text-gray-700 hover:text-red-600 transition"
+        className="mb-6 inline-flex items-center text-black hover:text-red-700 transition border-b-2 border-black focus:outline-none" // Reduced mb-8 to mb-6
       >
         <FiArrowLeft className="mr-2" /> Back to Portfolio
       </Link>
 
       {/* Project Details */}
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
-        <div className="p-8 bg-gradient-to-b from-[#fdfdfd] to-[#f4f4f4]">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {project.title}
-          </h1>
-          <div className="flex items-center text-gray-600 space-x-4 mb-6">
-            <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+      <div className="bg-white rounded shadow-none overflow-hidden mb-8 border-4 border-black">
+        <div className="p-6 pb-4"> {/* Reduced padding bottom to pb-4 */}
+          <h1 className="text-4xl font-mono tracking-wide mb-4">{project.title}</h1>
+          <div className="flex items-center space-x-4 mb-4"> {/* Reduced mb-6 to mb-4 */}
+            <span className="px-4 py-1 bg-red-700 text-white rounded-full text-sm font-mono">
               {project.date}
             </span>
           </div>
-          <ul className="space-y-4 mb-8">
+          <ul className="space-y-3 mb-6 font-serif"> {/* Reduced space-y-4 to space-y-3 and mb-8 to mb-6 */}
             {project.description.map((point, index) => (
-              <li key={index} className="flex items-start text-gray-700">
-                <span className="text-red-600 mr-2 mt-1">▹</span>
+              <li key={index} className="flex items-start">
+                <span className="text-red-700 mr-2 font-bold">▹</span>
                 {point}
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Image Grid - MASONRY LAYOUT */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-8"> {/* Adjusted columns for responsiveness */}
-          {project.images.map((url, i) => (
-            <div
-              key={i}
-              className="relative group overflow-hidden rounded-xl cursor-pointer hover:shadow-lg transition-shadow duration-200"
-              onClick={() => setSelectedImageIndex(i)}
-            >
-              <img
-                src={url}
-                alt="Project visual"
-                loading="lazy"
-                className="w-full h-full object-cover aspect-[1/1] sm:aspect-[4/3] md:aspect-[3/2] lg:aspect-[16/9] xl:aspect-[1/1] transform transition duration-200 group-hover:scale-105" /* Aspect ratios for different screen sizes */
-                style={{ aspectRatio: 'auto' }} // Override default aspect ratio to allow masonry effect
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-            </div>
-          ))}
+        {/* Image Grid Component */}
+        <div className="px-6 pb-6"> {/* Added px-6 and pb-6 to align with text padding and reduce space above footer if any */}
+          <ProjectImageGrid images={project.images} setSelectedImageIndex={setSelectedImageIndex} />
         </div>
       </div>
 
-      {/* Image Modal */}
-      {selectedImageIndex !== null && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 cursor-pointer"
-          onClick={() => setSelectedImageIndex(null)}
-        >
-          <div
-            className="relative max-w-4xl max-h-[90vh] p-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <img
-              src={project.images[selectedImageIndex]}
-              alt="Enlarged project visual"
-              className="object-contain max-w-full max-h-full"
-            />
-            <button
-              className="absolute -top-8 right-0 text-white text-2xl hover:text-gray-300 transition"
-              onClick={() => setSelectedImageIndex(null)}
-            >
-              ×
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Image Modal Component */}
+      <ProjectImageModal project={project} selectedImageIndex={selectedImageIndex} setSelectedImageIndex={setSelectedImageIndex} />
+
     </motion.div>
   );
 }
@@ -344,7 +373,7 @@ function SocialLink({ href, icon, label }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="flex items-center space-x-2 px-6 py-3 bg-white/10 rounded-full hover:bg-red-100 hover:text-red-700 transition duration-200"
+      className="flex items-center space-x-2 px-6 py-3 bg-white border-4 border-black rounded hover:bg-red-100 hover:text-red-700 transition duration-200 font-mono focus:outline-none"
     >
       {React.cloneElement(icon, { className: "w-5 h-5" })}
       <span>{label}</span>
@@ -354,8 +383,8 @@ function SocialLink({ href, icon, label }) {
 
 function SectionCard({ title, children, className }) {
   return (
-    <div className={`bg-white rounded-2xl shadow-lg p-6 ${className ?? ""}`}>
-      <h2 className="text-3xl font-bold text-gray-900 mb-6">{title}</h2>
+    <div className={`bg-white rounded shadow-none p-8 border-4 border-black ${className || ""}`}>
+      <h2 className="text-3xl font-mono tracking-wide mb-6">{title}</h2>
       {children}
     </div>
   );
@@ -363,7 +392,7 @@ function SectionCard({ title, children, className }) {
 
 function SkillPill({ title }) {
   return (
-    <div className="bg-red-700 text-white px-3 py-2 rounded-full text-sm text-center font-medium w-full">
+    <div className="px-3 py-2 border-4 border-black rounded text-sm text-center font-mono tracking-wider">
       {title}
     </div>
   );
@@ -371,15 +400,15 @@ function SkillPill({ title }) {
 
 function TimelineItem({ title, company, date, highlights }) {
   return (
-    <div className="relative pl-6">
-      <div className="absolute w-4 h-4 bg-red-700 rounded-full -left-[9px] top-2 border-2 border-white shadow" />
-      <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
-      <p className="text-gray-600 font-medium">{company}</p>
-      <p className="text-sm text-gray-500 mb-4">{date}</p>
-      <ul className="space-y-2">
+    <div className="relative pl-8">
+      <div className="absolute w-5 h-5 bg-red-700 rounded-full -left-[12px] top-2 border-4 border-black" />
+      <h3 className="text-xl font-mono tracking-wide">{title}</h3>
+      <p className="font-serif text-base">{company}</p>
+      <p className="text-sm mb-4">{date}</p>
+      <ul className="space-y-2 font-serif">
         {highlights.map((item, i) => (
-          <li key={i} className="flex items-start text-gray-700">
-            <span className="text-red-600 mr-2">▹</span>
+          <li key={i} className="flex items-start">
+            <span className="text-red-700 mr-2 font-bold">▹</span>
             {item}
           </li>
         ))}
@@ -389,41 +418,28 @@ function TimelineItem({ title, company, date, highlights }) {
 }
 
 function ProjectCard({ project }) {
-  // Function to generate a random HSL color
+  // Generate a random HSL color for the background gradient
   const getRandomHSL = (hueStart = 0, hueEnd = 360) => {
     const hue = Math.random() * (hueEnd - hueStart) + hueStart;
-    const saturation = Math.random() * 40 + 60; // Saturation between 60% and 100%
-    const lightness = Math.random() * 30 + 40;   // Lightness between 40% and 70%
+    const saturation = Math.random() * 40 + 60;
+    const lightness = Math.random() * 30 + 40;
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   };
 
-  // Generate three random HSL colors for a more dynamic gradient
-  const color1 = getRandomHSL();
-  const color2 = getRandomHSL();
-  const color3 = getRandomHSL();
-
-  // Construct a dynamic gradient style
   const backgroundStyle = {
-    backgroundImage: `linear-gradient(to bottom right, ${color1}, ${color2}, ${color3})`,
+    backgroundImage: `linear-gradient(to bottom right, ${getRandomHSL()}, ${getRandomHSL()}, ${getRandomHSL()})`,
   };
 
   return (
     <Link
       to={`/project/${project.id}`}
-      className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition duration-200"
+      className="group block rounded bg-white shadow-[4px_4px_0_black] border-4 border-black overflow-hidden transition duration-200 focus:outline-none"
     >
-      <div
-        className="h-48 overflow-hidden transition-all duration-300 group-hover:brightness-110"
-        style={backgroundStyle}
-      >
-        {/* No image or SVG here, just the dynamic background color */}
-      </div>
+      <div className="h-48 overflow-hidden transition-all duration-300" style={backgroundStyle}></div>
       <div className="p-6 bg-white">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-red-700 transition-colors duration-200">
-          {project.title}
-        </h3>
-        <p className="text-gray-600 line-clamp-2">{project.intro}</p>
-        <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
+        <h3 className="text-xl font-mono tracking-wide mb-2">{project.title}</h3>
+        <p className="line-clamp-2 font-serif">{project.intro}</p>
+        <div className="mt-4 flex items-center justify-between text-sm">
           <span>{project.date}</span>
         </div>
       </div>
@@ -433,12 +449,12 @@ function ProjectCard({ project }) {
 
 function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#f5f5f3]">
-      <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
-      <p className="text-xl text-gray-700 mb-8">Project not found</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+      <h1 className="text-6xl font-mono tracking-wide mb-4">404</h1>
+      <p className="text-xl font-serif mb-8">Project not found</p>
       <Link
         to="/"
-        className="flex items-center px-6 py-3 bg-gray-700 text-white rounded-full hover:bg-gray-800 transition duration-200"
+        className="flex items-center px-6 py-3 bg-white border-4 border-black rounded hover:bg-gray-100 transition duration-200 font-mono focus:outline-none"
       >
         <FiArrowLeft className="mr-2" /> Return to Portfolio
       </Link>
