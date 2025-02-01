@@ -82,7 +82,6 @@ function updateFavicon() {
   document.head.appendChild(link);
 }
 
-
 export default function App() {
   useEffect(() => {
     document.title = "Abdulrahman Adil";
@@ -107,24 +106,25 @@ export default function App() {
 }
 
 // =========== HOME PAGE COMPONENTS ===========
+
 const HeroSection = () => (
   <motion.header
-    className="text-center mb-12 relative rounded bg-white text-black p-12 shadow-[8px_8px_0_black] border-4 border-black"
+    className="text-center mb-8 relative rounded bg-white text-black p-6 md:p-12 shadow-[8px_8px_0_black] border-4 border-black"
     initial={{ scale: 0.95 }}
     animate={{ scale: 1 }}
     transition={{ duration: 0.7 }}
   >
-    <div className="relative z-10 space-y-6">
+    <div className="relative z-10 space-y-4 md:space-y-6">
       <img
         src="/images/me.png"
         alt="Profile of Abdulrahman Adil"
-        className="mx-auto w-36 h-36 object-cover rounded-full shadow-[4px_4px_0_black] border-4 border-black"
+        className="mx-auto w-24 h-24 md:w-36 md:h-36 object-cover rounded-full shadow-[4px_4px_0_black] border-4 border-black"
       />
-      <h1 className="text-4xl md:text-5xl font-mono tracking-wide">Abdulrahman Adil</h1>
-      <p className="text-lg font-serif italic tracking-wider max-w-2xl mx-auto">
+      <h1 className="text-2xl md:text-4xl font-mono tracking-wide">Abdulrahman Adil</h1>
+      <p className="text-base md:text-lg font-serif italic tracking-wider max-w-md md:max-w-2xl mx-auto">
         Mechanical Engineer | Product Development Specialist | Innovative Problem Solver
       </p>
-      <div className="flex justify-center space-x-4">
+      <div className="flex justify-center space-x-2 md:space-x-4">
         <SocialLink
           href="https://www.linkedin.com/in/abduladil415/"
           icon={<FiLinkedin />}
@@ -141,16 +141,16 @@ const HeroSection = () => (
 );
 
 const EducationSkills = () => (
-  <div className="grid md:grid-cols-2 gap-8 mb-12">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-12">
     <SectionCard title="Education">
-      <div className="bg-white rounded p-6 shadow-[4px_4px_0_black] border-4 border-black">
-        <h3 className="font-mono text-xl">University of Illinois at Chicago</h3>
+      <div className="bg-white rounded p-4 md:p-6 shadow-[4px_4px_0_black] border-4 border-black">
+        <h3 className="font-mono text-lg md:text-xl">University of Illinois at Chicago</h3>
         <p className="font-serif text-base">B.S. Mechanical Engineering</p>
         <p className="text-sm">December 2023 | GPA: 3.56/4.00</p>
       </div>
     </SectionCard>
-    <SectionCard title="Technical Expertise">
-      <div className="grid grid-cols-2 gap-y-4 sm:gap-x-6">
+    <SectionCard title="Professional Skills">
+      <div className="grid grid-cols-2 gap-2 sm:gap-4">
         <SkillPill title="Leadership" />
         <SkillPill title="Detail Oriented" />
         <SkillPill title="Project Management" />
@@ -165,8 +165,8 @@ const EducationSkills = () => (
 );
 
 const ProfessionalExperience = () => (
-  <SectionCard title="Professional Experience" className="mb-12">
-    <div className="relative pl-8 border-l-4 border-black space-y-8">
+  <SectionCard title="Professional Experience" className="mb-8 md:mb-12">
+    <div className="relative pl-4 md:pl-8 border-l-4 border-black space-y-4 md:space-y-8">
       <TimelineItem
         title="Sustaining Engineer (Villa Park, IL)"
         company="Switchcraft Conxall"
@@ -195,8 +195,8 @@ const ProfessionalExperience = () => (
 );
 
 const ProjectsShowcase = () => (
-  <SectionCard title="Engineering Projects" className="mb-12">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <SectionCard title="Engineering Projects" className="mb-8 md:mb-12">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
       {PROJECT_DATA.map((project) => (
         <motion.div
           key={project.id}
@@ -212,12 +212,11 @@ const ProjectsShowcase = () => (
   </SectionCard>
 );
 
-
 // =========== HOME PAGE ===========
 function HomePage() {
   return (
     <motion.div
-      className="max-w-6xl mx-auto p-8"
+      className="max-w-6xl mx-auto px-4 md:px-8 py-8 md:py-12"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
@@ -227,7 +226,7 @@ function HomePage() {
       <ProfessionalExperience />
       <ProjectsShowcase />
 
-      <footer className="mt-12 text-center text-sm">
+      <footer className="mt-8 md:mt-12 text-center text-xs md:text-sm">
         <p>© {new Date().getFullYear()} Abdulrahman Adil. All rights reserved.</p>
       </footer>
     </motion.div>
@@ -235,12 +234,13 @@ function HomePage() {
 }
 
 // =========== PROJECT PAGE COMPONENTS ===========
+
 const ProjectImageGrid = ({ images, setSelectedImageIndex }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"> {/* Reduced padding here */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4">
     {images.map((url, i) => (
       <div
         key={i}
-        className="relative overflow-hidden rounded cursor-pointer transition focus:outline-none border-4 border-black"
+        className="relative overflow-hidden rounded cursor-pointer transition border-4 border-black"
         onClick={() => setSelectedImageIndex(i)}
       >
         <img
@@ -254,7 +254,6 @@ const ProjectImageGrid = ({ images, setSelectedImageIndex }) => (
     ))}
   </div>
 );
-
 
 const ProjectImageModal = ({ project, selectedImageIndex, setSelectedImageIndex }) => {
   if (selectedImageIndex === null) return null;
@@ -273,9 +272,9 @@ const ProjectImageModal = ({ project, selectedImageIndex, setSelectedImageIndex 
           alt={`Enlarged project visual ${selectedImageIndex + 1}`}
           className="object-contain max-w-full max-h-full border-4 border-black"
         />
-        {/* Close Button (using FiX icon) */}
+        {/* Close Button */}
         <button
-          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
+          className="absolute top-4 right-4 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center text-white text-2xl md:text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
           onClick={() => setSelectedImageIndex(null)}
         >
           <FiX />
@@ -283,7 +282,7 @@ const ProjectImageModal = ({ project, selectedImageIndex, setSelectedImageIndex 
         {/* Previous Arrow */}
         {selectedImageIndex > 0 && (
           <button
-            className="absolute left-4 top-1/2 w-10 h-10 transform -translate-y-1/2 flex items-center justify-center text-white text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
+            className="absolute left-4 top-1/2 w-8 h-8 md:w-10 md:h-10 transform -translate-y-1/2 flex items-center justify-center text-white text-2xl md:text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
             onClick={() => setSelectedImageIndex(selectedImageIndex - 1)}
           >
             <FiArrowLeft />
@@ -292,7 +291,7 @@ const ProjectImageModal = ({ project, selectedImageIndex, setSelectedImageIndex 
         {/* Next Arrow */}
         {selectedImageIndex < project.images.length - 1 && (
           <button
-            className="absolute right-4 top-1/2 w-10 h-10 transform -translate-y-1/2 flex items-center justify-center text-white text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
+            className="absolute right-4 top-1/2 w-8 h-8 md:w-10 md:h-10 transform -translate-y-1/2 flex items-center justify-center text-white text-2xl md:text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
             onClick={() => setSelectedImageIndex(selectedImageIndex + 1)}
           >
             <FiArrowRight />
@@ -302,7 +301,6 @@ const ProjectImageModal = ({ project, selectedImageIndex, setSelectedImageIndex 
     </div>
   );
 };
-
 
 // =========== PROJECT PAGE ===========
 function ProjectPage() {
@@ -322,69 +320,69 @@ function ProjectPage() {
 
   return (
     <motion.div
-      className="max-w-4xl mx-auto px-8 py-12"
+      className="max-w-4xl mx-auto px-4 md:px-8 py-8 md:py-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
       <Link
         to="/"
-        className="mb-6 inline-flex items-center text-black hover:text-red-700 transition border-b-2 border-black focus:outline-none" // Reduced mb-8 to mb-6
+        className="mb-4 md:mb-6 inline-flex items-center text-black hover:text-red-700 transition border-b-2 border-black focus:outline-none"
       >
         <FiArrowLeft className="mr-2" /> Back to Portfolio
       </Link>
 
       {/* Project Details */}
-      <div className="bg-white rounded shadow-none overflow-hidden mb-8 border-4 border-black">
-        <div className="p-6 pb-4"> {/* Reduced padding bottom to pb-4 */}
-          <h1 className="text-4xl font-mono tracking-wide mb-4">{project.title}</h1>
-          <div className="flex items-center space-x-4 mb-4"> {/* Reduced mb-6 to mb-4 */}
-            <span className="px-4 py-1 bg-red-700 text-white rounded-full text-sm font-mono">
+      <div className="bg-white rounded shadow-none overflow-hidden mb-4 md:mb-8 border-4 border-black">
+        <div className="p-4 md:p-6">
+          <h1 className="text-2xl md:text-4xl font-mono tracking-wide mb-4">{project.title}</h1>
+          <div className="flex items-center space-x-2 md:space-x-4 mb-4">
+            <span className="px-3 py-1 md:px-4 md:py-1 bg-red-700 text-white rounded-full text-xs md:text-sm font-mono">
               {project.date}
             </span>
           </div>
-          <ul className="space-y-3 mb-6 font-serif"> {/* Reduced space-y-4 to space-y-3 and mb-8 to mb-6 */}
+          <ul className="space-y-2 md:space-y-3 mb-4 md:mb-6 font-serif">
             {project.description.map((point, index) => (
               <li key={index} className="flex items-start">
-                <span className="text-red-700 mr-2 font-bold">▹</span>
+                <span className="text-red-700 mr-1 md:mr-2 font-bold">▹</span>
                 {point}
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Image Grid Component */}
-        <div className="px-6 pb-6"> {/* Added px-6 and pb-6 to align with text padding and reduce space above footer if any */}
+        {/* Image Grid */}
+        <div className="px-4 md:px-6 pb-4 md:pb-6">
           <ProjectImageGrid images={project.images} setSelectedImageIndex={setSelectedImageIndex} />
         </div>
       </div>
 
-      {/* Image Modal Component */}
+      {/* Image Modal */}
       <ProjectImageModal project={project} selectedImageIndex={selectedImageIndex} setSelectedImageIndex={setSelectedImageIndex} />
-
     </motion.div>
   );
 }
 
 // =========== UI COMPONENTS ===========
+
 function SocialLink({ href, icon, label }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="flex items-center space-x-2 px-6 py-3 bg-white border-4 border-black rounded hover:bg-red-100 hover:text-red-700 transition duration-200 font-mono focus:outline-none"
+      className="flex items-center space-x-2 px-4 py-2 md:px-6 md:py-3 bg-white border-4 border-black rounded hover:bg-red-100 hover:text-red-700 transition duration-200 font-mono focus:outline-none"
     >
       {React.cloneElement(icon, { className: "w-5 h-5" })}
-      <span>{label}</span>
+      <span className="text-xs md:text-sm">{label}</span>
     </a>
   );
 }
 
 function SectionCard({ title, children, className }) {
   return (
-    <div className={`bg-white rounded shadow-none p-8 border-4 border-black ${className || ""}`}>
-      <h2 className="text-3xl font-mono tracking-wide mb-6">{title}</h2>
+    <div className={`bg-white rounded shadow-none p-4 md:p-8 border-4 border-black ${className || ""}`}>
+      <h2 className="text-xl md:text-3xl font-mono tracking-wide mb-4">{title}</h2>
       {children}
     </div>
   );
@@ -392,7 +390,7 @@ function SectionCard({ title, children, className }) {
 
 function SkillPill({ title }) {
   return (
-    <div className="px-3 py-2 border-4 border-black rounded text-sm text-center font-mono tracking-wider">
+    <div className="px-2 py-1 md:px-3 md:py-2 border-4 border-black rounded text-xs md:text-sm text-center font-mono tracking-wider">
       {title}
     </div>
   );
@@ -400,15 +398,15 @@ function SkillPill({ title }) {
 
 function TimelineItem({ title, company, date, highlights }) {
   return (
-    <div className="relative pl-8">
-      <div className="absolute w-5 h-5 bg-red-700 rounded-full -left-[12px] top-2 border-4 border-black" />
-      <h3 className="text-xl font-mono tracking-wide">{title}</h3>
+    <div className="relative pl-4 md:pl-8">
+      <div className="absolute w-4 h-4 md:w-5 md:h-5 bg-red-700 rounded-full -left-2 md:-left-3 top-2 border-4 border-black" />
+      <h3 className="text-lg md:text-xl font-mono tracking-wide">{title}</h3>
       <p className="font-serif text-base">{company}</p>
-      <p className="text-sm mb-4">{date}</p>
-      <ul className="space-y-2 font-serif">
+      <p className="text-xs md:text-sm mb-2 md:mb-4">{date}</p>
+      <ul className="space-y-1 md:space-y-2 font-serif">
         {highlights.map((item, i) => (
           <li key={i} className="flex items-start">
-            <span className="text-red-700 mr-2 font-bold">▹</span>
+            <span className="text-red-700 mr-1 md:mr-2 font-bold">▹</span>
             {item}
           </li>
         ))}
@@ -435,11 +433,11 @@ function ProjectCard({ project }) {
       to={`/project/${project.id}`}
       className="group block rounded bg-white shadow-[4px_4px_0_black] border-4 border-black overflow-hidden transition duration-200 focus:outline-none"
     >
-      <div className="h-48 overflow-hidden transition-all duration-300" style={backgroundStyle}></div>
-      <div className="p-6 bg-white">
-        <h3 className="text-xl font-mono tracking-wide mb-2">{project.title}</h3>
-        <p className="line-clamp-2 font-serif">{project.intro}</p>
-        <div className="mt-4 flex items-center justify-between text-sm">
+      <div className="h-32 md:h-48 overflow-hidden transition-all duration-300" style={backgroundStyle}></div>
+      <div className="p-4 md:p-6 bg-white">
+        <h3 className="text-lg md:text-xl font-mono tracking-wide mb-2">{project.title}</h3>
+        <p className="line-clamp-2 font-serif text-xs md:text-sm">{project.intro}</p>
+        <div className="mt-2 md:mt-4 flex items-center justify-between text-xs md:text-sm">
           <span>{project.date}</span>
         </div>
       </div>
@@ -449,12 +447,12 @@ function ProjectCard({ project }) {
 
 function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-      <h1 className="text-6xl font-mono tracking-wide mb-4">404</h1>
-      <p className="text-xl font-serif mb-8">Project not found</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-white p-4">
+      <h1 className="text-4xl md:text-6xl font-mono tracking-wide mb-4">404</h1>
+      <p className="text-base md:text-xl font-serif mb-4">Project not found</p>
       <Link
         to="/"
-        className="flex items-center px-6 py-3 bg-white border-4 border-black rounded hover:bg-gray-100 transition duration-200 font-mono focus:outline-none"
+        className="flex items-center px-4 py-2 md:px-6 md:py-3 bg-white border-4 border-black rounded hover:bg-gray-100 transition duration-200 font-mono focus:outline-none"
       >
         <FiArrowLeft className="mr-2" /> Return to Portfolio
       </Link>
