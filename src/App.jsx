@@ -6,7 +6,13 @@ import {
   Link,
   useParams,
 } from "react-router-dom";
-import { FiLinkedin, FiMail, FiArrowLeft, FiArrowRight, FiX } from "react-icons/fi";
+import {
+  FiLinkedin,
+  FiMail,
+  FiArrowLeft,
+  FiArrowRight,
+  FiX,
+} from "react-icons/fi";
 import { motion } from "framer-motion";
 
 // =========== PROJECT DATA ===========
@@ -120,9 +126,12 @@ const HeroSection = () => (
         alt="Profile of Abdulrahman Adil"
         className="mx-auto w-24 h-24 md:w-36 md:h-36 object-cover rounded-full shadow-[4px_4px_0_black] border-4 border-black"
       />
-      <h1 className="text-3xl md:text-5xl font-mono tracking-wide">Abdulrahman Adil</h1>
+      <h1 className="text-3xl md:text-5xl font-mono tracking-wide">
+        Abdulrahman Adil
+      </h1>
       <p className="text-base md:text-lg font-serif italic tracking-wider max-w-md md:max-w-2xl mx-auto">
-        Mechanical Engineer | Product Development Specialist | Innovative Problem Solver
+        Mechanical Engineer | Product Development Specialist | Innovative Problem
+        Solver
       </p>
       <div className="flex justify-center space-x-4">
         <SocialLink
@@ -144,13 +153,15 @@ const EducationSkills = () => (
   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
     <SectionCard title="Education">
       <div className="bg-white rounded p-6 shadow-[4px_4px_0_black] border-4 border-black">
-        <h3 className="font-mono text-lg md:text-xl">University of Illinois at Chicago</h3>
+        <h3 className="font-mono text-lg md:text-xl">
+          University of Illinois at Chicago
+        </h3>
         <p className="font-serif text-base">B.S. Mechanical Engineering</p>
         <p className="text-sm">December 2023 | GPA: 3.56/4.00</p>
       </div>
     </SectionCard>
     <SectionCard title="Professional Skills">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <SkillPill title="Leadership" />
         <SkillPill title="Detail Oriented" />
         <SkillPill title="Project Management" />
@@ -233,7 +244,6 @@ function HomePage() {
 }
 
 // =========== PROJECT PAGE COMPONENTS ===========
-
 const ProjectImageGrid = ({ images, setSelectedImageIndex }) => (
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
     {images.map((url, i) => (
@@ -254,7 +264,11 @@ const ProjectImageGrid = ({ images, setSelectedImageIndex }) => (
   </div>
 );
 
-const ProjectImageModal = ({ project, selectedImageIndex, setSelectedImageIndex }) => {
+const ProjectImageModal = ({
+  project,
+  selectedImageIndex,
+  setSelectedImageIndex,
+}) => {
   if (selectedImageIndex === null) return null;
 
   return (
@@ -312,7 +326,8 @@ function ProjectPage() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = selectedImageIndex !== null ? "hidden" : "unset";
+    document.body.style.overflow =
+      selectedImageIndex !== null ? "hidden" : "unset";
   }, [selectedImageIndex]);
 
   if (!project) return <NotFound />;
@@ -331,14 +346,16 @@ function ProjectPage() {
         <FiArrowLeft className="mr-2" /> Back to Portfolio
       </Link>
       <div className="bg-white rounded overflow-hidden border-4 border-black">
-        <div className="p-2"> {/* Changed p-4 to p-2 here */}
-          <h1 className="text-2xl md:text-4xl font-mono tracking-wide mb-2"> {/* Reduced mb-4 to mb-2 */} {project.title}</h1>
-          <div className="flex items-center space-x-4 mb-2"> {/* Reduced mb-4 to mb-2 */}
+        <div className="p-2">
+          <h1 className="text-2xl md:text-4xl font-mono tracking-wide mb-2">
+            {project.title}
+          </h1>
+          <div className="flex items-center space-x-4 mb-2">
             <span className="px-4 py-1 bg-red-700 text-white rounded-full text-sm font-mono">
               {project.date}
             </span>
           </div>
-          <ul className="space-y-2 mb-4 font-serif"> {/* Reduced mb-6 to mb-4 */}
+          <ul className="space-y-2 mb-4 font-serif">
             {project.description.map((point, index) => (
               <li key={index} className="flex items-start">
                 <span className="text-red-700 mr-2 font-bold">▹</span>
@@ -347,8 +364,11 @@ function ProjectPage() {
             ))}
           </ul>
         </div>
-        <div className="p-2"> {/* Changed p-4 to p-2 here */}
-          <ProjectImageGrid images={project.images} setSelectedImageIndex={setSelectedImageIndex} />
+        <div className="p-2">
+          <ProjectImageGrid
+            images={project.images}
+            setSelectedImageIndex={setSelectedImageIndex}
+          />
         </div>
       </div>
       <ProjectImageModal
@@ -361,7 +381,6 @@ function ProjectPage() {
 }
 
 // =========== UI COMPONENTS ===========
-
 function SocialLink({ href, icon, label }) {
   return (
     <a
@@ -387,7 +406,9 @@ function SectionCard({ title, children, className }) {
 
 function SkillPill({ title }) {
   return (
-    <div className="px-3 py-2 border-4 border-black rounded text-sm text-center font-mono tracking-wider">
+    <div
+      className="px-3 py-2 border-4 border-black rounded text-sm text-center font-mono tracking-wider whitespace-normal break-words"
+    >
       {title}
     </div>
   );
@@ -430,9 +451,14 @@ function ProjectCard({ project }) {
       to={`/project/${project.id}`}
       className="group block rounded bg-white shadow-[4px_4px_0_black] border-4 border-black overflow-hidden transition duration-200 focus:outline-none"
     >
-      <div className="h-32 md:h-48 overflow-hidden transition-all duration-300" style={backgroundStyle}></div>
+      <div
+        className="h-32 md:h-48 overflow-hidden transition-all duration-300"
+        style={backgroundStyle}
+      ></div>
       <div className="p-6 bg-white">
-        <h3 className="text-xl font-mono tracking-wide mb-2">{project.title}</h3>
+        <h3 className="text-xl font-mono tracking-wide mb-2">
+          {project.title}
+        </h3>
         <p className="line-clamp-2 font-serif text-sm">{project.intro}</p>
         <div className="mt-4 flex items-center justify-between text-sm">
           <span>{project.date}</span>
