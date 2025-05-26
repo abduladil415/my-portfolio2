@@ -97,7 +97,7 @@ export default function App() {
   return (
     <Router>
       <motion.div
-        className="min-h-screen bg-white text-black font-sans"
+        className="min-h-screen bg-background text-textPrimary font-sans" // Updated
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
@@ -115,21 +115,21 @@ export default function App() {
 
 const HeroSection = () => (
   <motion.header
-    className="text-center rounded bg-white text-black p-8 shadow-[8px_8px_0_black] border-4 border-black"
+    className="text-center rounded bg-card text-textPrimary p-8 shadow-xl border border-borderLight" // Updated
     initial={{ scale: 0.95 }}
     animate={{ scale: 1 }}
-    transition={{ duration: 0.7 }}
+    transition={{ duration: 0.5 }} // Duration updated from 0.7 to 0.5
   >
     <div className="relative z-10 space-y-4 md:space-y-6">
       <img
         src="/images/me.png"
         alt="Profile of Abdulrahman Adil"
-        className="mx-auto w-24 h-24 md:w-36 md:h-36 object-cover rounded-full shadow-[4px_4px_0_black] border-4 border-black"
+        className="mx-auto w-24 h-24 md:w-36 md:h-36 object-cover rounded-full shadow-lg border-2 border-borderDark" // Updated
       />
-      <h1 className="text-3xl md:text-5xl font-mono tracking-wide">
+      <h1 className="text-3xl md:text-5xl font-mono tracking-wide text-textPrimary"> {/* Updated */}
         Abdulrahman Adil
       </h1>
-      <p className="text-base md:text-lg font-serif italic tracking-wider max-w-md md:max-w-2xl mx-auto">
+      <p className="text-base md:text-lg font-sans italic tracking-wider max-w-md md:max-w-2xl mx-auto text-textSecondary"> {/* Typography Updated: font-serif to font-sans */}
         Mechanical Engineer | Product Development Specialist | Innovative Problem
         Solver
       </p>
@@ -152,12 +152,12 @@ const HeroSection = () => (
 const EducationSkills = () => (
   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
     <SectionCard title="Education">
-      <div className="bg-white rounded p-6 shadow-[4px_4px_0_black] border-4 border-black">
-        <h3 className="font-mono text-lg md:text-xl">
+      <div className="bg-card rounded p-6 shadow-lg border border-borderLight"> {/* Updated */}
+        <h3 className="font-mono text-lg md:text-xl text-textPrimary"> {/* Updated */}
           University of Illinois at Chicago
         </h3>
-        <p className="font-serif text-base">B.S. Mechanical Engineering</p>
-        <p className="text-sm">December 2023 | GPA: 3.56/4.00</p>
+        <p className="font-sans text-base text-textSecondary">B.S. Mechanical Engineering</p> {/* Typography Updated: font-serif to font-sans */}
+        <p className="text-sm text-textSecondary">December 2023 | GPA: 3.56/4.00</p> {/* Updated */}
       </div>
     </SectionCard>
     <SectionCard title="Professional Skills">
@@ -177,7 +177,7 @@ const EducationSkills = () => (
 
 const ProfessionalExperience = () => (
   <SectionCard title="Professional Experience">
-    <div className="relative pl-8 border-l-4 border-black space-y-4">
+    <div className="relative pl-8 border-l-2 border-borderDark space-y-4"> {/* Updated */}
       <TimelineItem
         title="Sustaining Engineer (Villa Park, IL)"
         company="Switchcraft Conxall"
@@ -213,7 +213,7 @@ const ProjectsShowcase = () => (
           key={project.id}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }} // Duration updated from 0.5 to 0.4
           viewport={{ once: true }}
         >
           <ProjectCard project={project} />
@@ -230,13 +230,13 @@ function HomePage() {
       className="max-w-6xl mx-auto p-8 space-y-8"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.6 }} // Duration updated from 0.8 to 0.6
     >
       <HeroSection />
       <EducationSkills />
       <ProfessionalExperience />
       <ProjectsShowcase />
-      <footer className="text-center text-sm">
+      <footer className="text-center text-sm text-textSecondary"> {/* Updated */}
         <p>© {new Date().getFullYear()} Abdulrahman Adil. All rights reserved.</p>
       </footer>
     </motion.div>
@@ -249,7 +249,7 @@ const ProjectImageGrid = ({ images, setSelectedImageIndex }) => (
     {images.map((url, i) => (
       <div
         key={i}
-        className="relative overflow-hidden rounded cursor-pointer transition border-4 border-black"
+        className="relative overflow-hidden rounded cursor-pointer transition border-2 border-borderDark hover:border-primary aspect-square" // Added aspect-square
         onClick={() => setSelectedImageIndex(i)}
       >
         <img
@@ -273,7 +273,7 @@ const ProjectImageModal = ({
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-slate-900/90 flex items-center justify-center z-50" // Updated backdrop
       onClick={() => setSelectedImageIndex(null)}
     >
       <div
@@ -283,11 +283,11 @@ const ProjectImageModal = ({
         <img
           src={project.images[selectedImageIndex]}
           alt={`Enlarged project visual ${selectedImageIndex + 1}`}
-          className="object-contain max-w-full max-h-full border-4 border-black"
+          className="object-contain max-w-full max-h-full border-2 border-primary" // Updated border
         />
         {/* Close Button */}
         <button
-          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
+          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white text-3xl bg-primary/75 rounded-full hover:bg-primary transition focus:outline-none" // Updated style
           onClick={() => setSelectedImageIndex(null)}
         >
           <FiX />
@@ -295,7 +295,7 @@ const ProjectImageModal = ({
         {/* Previous Arrow */}
         {selectedImageIndex > 0 && (
           <button
-            className="absolute left-4 top-1/2 w-10 h-10 transform -translate-y-1/2 flex items-center justify-center text-white text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
+            className="absolute left-4 top-1/2 w-10 h-10 transform -translate-y-1/2 flex items-center justify-center text-white text-3xl bg-primary/75 rounded-full hover:bg-primary transition focus:outline-none" // Updated style
             onClick={() => setSelectedImageIndex(selectedImageIndex - 1)}
           >
             <FiArrowLeft />
@@ -304,7 +304,7 @@ const ProjectImageModal = ({
         {/* Next Arrow */}
         {selectedImageIndex < project.images.length - 1 && (
           <button
-            className="absolute right-4 top-1/2 w-10 h-10 transform -translate-y-1/2 flex items-center justify-center text-white text-3xl bg-black bg-opacity-50 rounded-full hover:bg-opacity-70 transition focus:outline-none"
+            className="absolute right-4 top-1/2 w-10 h-10 transform -translate-y-1/2 flex items-center justify-center text-white text-3xl bg-primary/75 rounded-full hover:bg-primary transition focus:outline-none" // Updated style
             onClick={() => setSelectedImageIndex(selectedImageIndex + 1)}
           >
             <FiArrowRight />
@@ -341,30 +341,30 @@ function ProjectPage() {
     >
       <Link
         to="/"
-        className="inline-flex items-center text-black hover:text-red-700 transition border-b-2 border-black focus:outline-none"
+        className="inline-flex items-center text-textPrimary hover:text-primary transition border-b-2 border-borderDark focus:outline-none focus:border-primary" // Updated
       >
         <FiArrowLeft className="mr-2" /> Back to Portfolio
       </Link>
-      <div className="bg-white rounded overflow-hidden border-4 border-black">
-        <div className="p-2">
-          <h1 className="text-2xl md:text-4xl font-mono tracking-wide mb-2">
+      <div className="bg-card rounded overflow-hidden border border-borderLight shadow-lg"> {/* Updated */}
+        <div className="p-6 md:p-8"> {/* Increased padding */}
+          <h1 className="text-2xl md:text-4xl font-mono tracking-wide mb-2 text-textPrimary"> {/* Updated */}
             {project.title}
           </h1>
-          <div className="flex items-center space-x-4 mb-2">
-            <span className="px-4 py-1 bg-red-700 text-white rounded-full text-sm font-mono">
+          <div className="flex items-center space-x-4 mb-4"> {/* Increased margin bottom */}
+            <span className="px-4 py-1 bg-primary text-white rounded-full text-sm font-mono"> {/* Updated */}
               {project.date}
             </span>
           </div>
-          <ul className="space-y-2 mb-4 font-serif">
+          <ul className="space-y-2 mb-4 font-sans text-textSecondary project-description"> {/* Typography Updated: font-serif to font-sans */}
             {project.description.map((point, index) => (
               <li key={index} className="flex items-start">
-                <span className="text-red-700 mr-2 font-bold">▹</span>
+                {/* Span with icon is handled by project-description class in index.css */}
                 {point}
               </li>
             ))}
           </ul>
         </div>
-        <div className="p-2">
+        <div className="p-6 md:p-8"> {/* Increased padding */}
           <ProjectImageGrid
             images={project.images}
             setSelectedImageIndex={setSelectedImageIndex}
@@ -387,7 +387,7 @@ function SocialLink({ href, icon, label }) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="flex items-center space-x-2 px-6 py-3 bg-white border-4 border-black rounded hover:bg-red-100 hover:text-red-700 transition duration-200 font-mono focus:outline-none"
+      className="flex items-center space-x-2 px-6 py-3 bg-card border-2 border-borderDark rounded hover:bg-primary hover:text-white hover:border-primary transition duration-200 font-sans focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" // Typography Updated: font-mono to font-sans
     >
       {React.cloneElement(icon, { className: "w-5 h-5" })}
       <span className="text-sm">{label}</span>
@@ -397,8 +397,8 @@ function SocialLink({ href, icon, label }) {
 
 function SectionCard({ title, children, className }) {
   return (
-    <div className={`bg-white rounded p-8 border-4 border-black ${className || ""}`}>
-      <h2 className="text-3xl font-mono tracking-wide mb-4">{title}</h2>
+    <div className={`bg-card rounded p-8 border border-borderLight shadow-lg ${className || ""}`}> {/* Updated */}
+      <h2 className="text-3xl font-mono tracking-wide mb-6 text-textPrimary">{title}</h2> {/* Updated, increased margin bottom */}
       {children}
     </div>
   );
@@ -407,7 +407,7 @@ function SectionCard({ title, children, className }) {
 function SkillPill({ title }) {
   return (
     <div
-      className="px-3 py-2 border-4 border-black rounded text-sm text-center font-mono tracking-wider whitespace-normal break-words"
+      className="px-3 py-2 border border-borderLight rounded text-sm text-center font-mono tracking-wider whitespace-normal break-words bg-background text-textSecondary hover:bg-borderLight transition" // Updated
     >
       {title}
     </div>
@@ -417,14 +417,14 @@ function SkillPill({ title }) {
 function TimelineItem({ title, company, date, highlights }) {
   return (
     <div className="relative pl-8">
-      <div className="absolute w-5 h-5 bg-red-700 rounded-full -left-3 top-2 border-4 border-black" />
-      <h3 className="text-xl font-mono tracking-wide">{title}</h3>
-      <p className="font-serif text-base">{company}</p>
-      <p className="text-sm mb-4">{date}</p>
-      <ul className="space-y-2 font-serif">
+      <div className="absolute w-5 h-5 bg-primary rounded-full -left-2.5 top-1.5 border-4 border-background" /> {/* Updated color, border to match background for "floating" effect */}
+      <h3 className="text-xl font-mono tracking-wide text-textPrimary">{title}</h3> {/* Updated */}
+      <p className="font-sans text-base text-textSecondary">{company}</p> {/* Typography Updated: font-serif to font-sans */}
+      <p className="text-sm mb-4 text-textSecondary font-mono">{date}</p> {/* Typography Updated: Ensured date is font-mono */}
+      <ul className="space-y-2 font-sans text-textSecondary project-description"> {/* Typography Updated: font-serif to font-sans */}
         {highlights.map((item, i) => (
           <li key={i} className="flex items-start">
-            <span className="text-red-700 mr-2 font-bold">▹</span>
+            {/* Span with icon is handled by project-description class in index.css */}
             {item}
           </li>
         ))}
@@ -434,34 +434,24 @@ function TimelineItem({ title, company, date, highlights }) {
 }
 
 function ProjectCard({ project }) {
-  // Generate a random HSL color for the background gradient
-  const getRandomHSL = (hueStart = 0, hueEnd = 360) => {
-    const hue = Math.random() * (hueEnd - hueStart) + hueStart;
-    const saturation = Math.random() * 40 + 60;
-    const lightness = Math.random() * 30 + 40;
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-  };
-
-  const backgroundStyle = {
-    backgroundImage: `linear-gradient(to bottom right, ${getRandomHSL()}, ${getRandomHSL()}, ${getRandomHSL()})`,
-  };
+  // Removed random HSL gradient generation
 
   return (
     <Link
       to={`/project/${project.id}`}
-      className="group block rounded bg-white shadow-[4px_4px_0_black] border-4 border-black overflow-hidden transition duration-200 focus:outline-none"
+      className="group block rounded bg-card shadow-lg border border-borderLight overflow-hidden transition duration-200 hover:shadow-xl hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" // Updated
     >
       <div
-        className="h-32 md:h-48 overflow-hidden transition-all duration-300"
-        style={backgroundStyle}
+        className="h-32 md:h-48 overflow-hidden transition-all duration-300 bg-slate-200" // Changed from random gradient to bg-slate-200
+        // style removed
       ></div>
-      <div className="p-6 bg-white">
-        <h3 className="text-xl font-mono tracking-wide mb-2">
+      <div className="p-6 bg-card"> {/* Updated */}
+        <h3 className="text-xl font-mono tracking-wide mb-2 text-textPrimary group-hover:text-primary transition"> {/* Updated */}
           {project.title}
         </h3>
-        <p className="line-clamp-2 font-serif text-sm">{project.intro}</p>
-        <div className="mt-4 flex items-center justify-between text-sm">
-          <span>{project.date}</span>
+        <p className="line-clamp-2 font-sans text-sm text-textSecondary">{project.intro}</p> {/* Typography Updated: font-serif to font-sans */}
+        <div className="mt-4 flex items-center justify-between text-sm text-textSecondary"> {/* Updated */}
+          <span className="font-mono">{project.date}</span> {/* Typography Updated: Ensured date is font-mono */}
         </div>
       </div>
     </Link>
@@ -470,12 +460,12 @@ function ProjectCard({ project }) {
 
 function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white p-8">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-background p-8 text-textPrimary"> {/* Updated */}
       <h1 className="text-6xl font-mono tracking-wide mb-4">404</h1>
-      <p className="text-xl font-serif mb-4">Project not found</p>
+      <p className="text-xl font-sans mb-4 text-textSecondary">Project not found</p> {/* Typography Updated: font-serif to font-sans */}
       <Link
         to="/"
-        className="flex items-center px-6 py-3 bg-white border-4 border-black rounded hover:bg-gray-100 transition duration-200 font-mono focus:outline-none"
+        className="flex items-center px-6 py-3 bg-card border-2 border-borderDark rounded hover:bg-primary hover:text-white hover:border-primary transition duration-200 font-sans focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" // Typography Updated: font-mono to font-sans
       >
         <FiArrowLeft className="mr-2" /> Return to Portfolio
       </Link>

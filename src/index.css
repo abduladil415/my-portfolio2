@@ -39,7 +39,7 @@
   }
 
   .project-description li::before {
-    @apply absolute left-0 text-blue-400;
+    @apply absolute left-0 text-primary; /* Updated to use theme color */
     content: '▹';
   }
 
@@ -49,11 +49,11 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-blue-50;
+    @apply bg-slate-200; /* Updated to a specific light gray as per review */
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-blue-300 rounded-full hover:bg-blue-400;
+    @apply bg-primary rounded-full hover:bg-opacity-80; /* Updated to use theme color */
   }
 }
 
@@ -64,7 +64,7 @@
   }
 
   body {
-    @apply antialiased text-blue-900 bg-blue-50;
+    @apply antialiased text-textPrimary bg-background; /* Updated to use theme colors */
   }
 
   h1, h2, h3 {

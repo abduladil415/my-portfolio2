@@ -9,6 +9,16 @@ export default {
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
+      colors: {
+        primary: 'blue-600',
+        secondary: 'slate-600',
+        background: 'slate-100',
+        card: 'white',
+        textPrimary: 'slate-800',
+        textSecondary: 'slate-600',
+        borderLight: 'slate-300',
+        borderDark: 'slate-400',
       }
     },
   },
